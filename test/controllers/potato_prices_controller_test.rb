@@ -16,6 +16,11 @@ class PotatoPricesControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+    test "should return 204 when params provided does not match any data" do
+    get potato_prices_show_url, params: { date: '2022-08-23' }
+    assert_response :not_found
+  end
+
   test "should return 200 when params provided and match prices" do
     prices = [
       { time: DateTime.new(2024, 9, 13, 9, 0, 0).strftime("%FT%T.%LZ"), value: 100.25 },
