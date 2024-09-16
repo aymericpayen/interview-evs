@@ -6,7 +6,7 @@ class PotatoPriceService
       if prices.any?
         prices
       else
-        raise ActiveRecord::RecordNotFound, 'No prices found for the specified date therefor no max_gain can be computed'
+        raise ActiveRecord::RecordNotFound, 'No prices found for the specified date'
       end
     end
   end

@@ -5,18 +5,21 @@ class BestPossibleGainControllerTest < ActionDispatch::IntegrationTest
     PotatoPrice.create!(time: '2022-08-22T09:00:00.000Z', value: 100.25)
     get best_possible_gain_show_url, params: { date: '08-22' }
     assert_response :unprocessable_content
+    assert_equal "Please specify a valid date YYYY-mm-dd", JSON.parse(response.body)["error"]
   end
 
   test "should return 422 when invalid params provided" do
     PotatoPrice.create!(time: '2022-08-22T09:00:00.000Z', value: 100.25)
     get best_possible_gain_show_url
     assert_response :unprocessable_content
+    assert_equal "Please specify a valid date YYYY-mm-dd", JSON.parse(response.body)["error"]
   end
 
     test "should return 204 when invalid params provided" do
     PotatoPrice.create!(time: '2022-08-22T09:00:00.000Z', value: 100.25)
     get best_possible_gain_show_url , params: { date: '2022-08-23' }
     assert_response :not_found
+    assert_equal "No prices found for the specified date", JSON.parse(response.body)["error"]
   end
 
 
