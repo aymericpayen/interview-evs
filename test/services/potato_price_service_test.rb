@@ -7,10 +7,10 @@ class PotatoPriceServiceTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should return prices for a given date" do
+  test "should return prices for a given date is ascending order" do
     prices = [
-      { time: DateTime.new(2024, 9, 13, 9, 0, 0).strftime("%FT%T.%LZ"), value: 100.25 },
-      { time: DateTime.new(2024, 9, 13, 9, 1, 0).strftime("%FT%T.%LZ"), value: 100.29 }
+      { time: DateTime.new(2024, 9, 13, 9, 1, 0).strftime("%FT%T.%LZ"), value: 100.29 }, { time: DateTime.new(2024, 9, 13, 9, 0, 0).strftime("%FT%T.%LZ"), value: 100.25 }
+
     ]
     PotatoPrice.create!(prices)
 
