@@ -13,6 +13,13 @@ class BestPossibleGainControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_content
   end
 
+    test "should return 204 when invalid params provided" do
+    PotatoPrice.create!(time: '2022-08-22T09:00:00.000Z', value: 100.25)
+    get best_possible_gain_show_url , params: { date: '2022-08-23' }
+    assert_response :not_found
+  end
+
+
   test "should return 200 and max_gain = 0 when only one price record" do
     PotatoPrice.create!(time: '2022-08-22T09:00:00.000Z', value: 100.25)
     get best_possible_gain_show_url, params: { date: '2022-08-22' }

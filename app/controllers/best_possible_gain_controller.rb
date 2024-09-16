@@ -11,7 +11,7 @@ class BestPossibleGainController < ApplicationController
         render json: {error: e.message}, status: :not_found
       end
     else
-      render json: { error: 'Please specify a valid date YYYY-mm-dd' }, status: :unprocessable_content
+      render json: { error: 'Please specify a valid date YYYY-mm-dd' }, status: :unprocessable_content  
     end
   end
 

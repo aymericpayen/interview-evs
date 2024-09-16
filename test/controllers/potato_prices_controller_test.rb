@@ -10,16 +10,16 @@ class PotatoPricesControllerTest < ActionDispatch::IntegrationTest
     get potato_prices_show_url, params: { date: '2022' }
     assert_response :unprocessable_content
   end
+  test "should return 204 when params provided does not match any data" do
+    get potato_prices_show_url, params: { date: '2022-08-23' }
+    assert_response :not_found
+  end
 
   test "should return 404 when params provided but 0 prices found" do
     get potato_prices_show_url, params: { date: '2022-08-22' }
     assert_response :not_found
   end
 
-    test "should return 204 when params provided does not match any data" do
-    get potato_prices_show_url, params: { date: '2022-08-23' }
-    assert_response :not_found
-  end
 
   test "should return 200 when params provided and match prices" do
     prices = [
