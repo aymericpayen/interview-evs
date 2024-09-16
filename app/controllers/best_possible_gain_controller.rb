@@ -3,7 +3,6 @@ class BestPossibleGainController < ApplicationController
     date = price_potato_params[:date]
     prices = PotatoPriceService.prices_for_date(date).pluck(:value)
     max_gain = calculate_max_gain(prices)
-    p max_gain.class
     render json: { max_gain: max_gain }
   end
 
