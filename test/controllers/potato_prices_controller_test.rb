@@ -1,9 +1,14 @@
 require "test_helper"
 
 class PotatoPricesControllerTest < ActionDispatch::IntegrationTest
-test "should return 404 when no params provided" do
+  test "should return 422 when no params provided" do
     get potato_prices_show_url
-    assert_response :not_found
+    assert_response :unprocessable_content
+  end
+
+  test "should return 422 when invalid params provided" do
+    get potato_prices_show_url, params: { date: '2022' }
+    assert_response :unprocessable_content
   end
 
   test "should return 404 when params provided but 0 prices found" do

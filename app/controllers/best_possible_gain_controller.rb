@@ -1,9 +1,14 @@
 class BestPossibleGainController < ApplicationController
+  include DateValidation
+
   def show
-    date = price_potato_params[:date]
-    prices = PotatoPriceService.prices_for_date(date).pluck(:value)
-    max_gain = calculate_max_gain(prices)
-    render json: { max_gain: max_gain }
+    if price_potato_params[:date].present? && valid_date?(price_potato_params[:date], '%Y-%m-%d')
+      prices = PotatoPriceService.prices_for_date(price_potato_params[:date]).pluck(:value)
+      max_gain = calculate_max_gain(prices)
+      render json: { max_gain: max_gain }, status: :ok
+    else
+      render json: { error: 'Please specify a valid date YYYY-mm-dd' }, status: :unprocessable_content
+    end
   end
 
    private
