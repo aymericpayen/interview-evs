@@ -1,24 +1,48 @@
-# README
+# Potato Trader API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a Ruby on Rails API application for tracking potato prices and calculating the best possible gain.
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+1. Clone the repository:
+   ```
+   git clone https://github.com/aymericpayen/interview-evs.git
+   ```
 
-* System dependencies
+2. Install dependencies:
+   ```
+   bundle install
+   ```
 
-* Configuration
+3. Set up the database:
+   ```
+   rails db:create db:migrate db:seed
+   ```
 
-* Database creation
+## Running the Application
 
-* Database initialization
+The API will be available at `http://localhost:3000`
 
-* How to run the test suite
+## Running Tests
 
-* Services (job queues, cache servers, search engines, etc.)
+Execute the test suite with:
+  ```
+  rails test
+  ```
 
-* Deployment instructions
+## API Endpoints
 
-* ...
+- GET `/potatoes/prices?date=YYYY-MM-DD`: Retrieve potato prices for a specific date
+- GET `/potatoes/best_possible_gain?date=YYYY-MM-DD`: Calculate the best possible gain for a specific date
+
+## Side notes / Possible improvements
+
+- `calculate_max_gain` method optimized from quadratic to linear perf algo. There could be further improvements most likely
+- potatoes's controllers contains logic `valid_date?`, it can be extracted to related services. Same for the begin..rescue pattern. This way #show enclosed less logic and follow "Single Responsibility Principle"
+- potatoes's services have some common methods, it can be mutualized in order the codebase to be DRY
+- `seed.rb` could have contained more seeds
+- tests are using default RoR testing framework, using Rspec would lead to better organization (describe, context...)
+- potatoes's controllers related tests are covering some edge cases, more edge cases exist most likely.
+- Adding factories for test
+- Use a serializer so the output of the endpoints can be understood from most of the clients
+- Assuming potatoe stocks are sampled in milliseconds, queries to extract prices can be heavy and degraded app performance. Maybe adding caching mechanism could help (indexing on time already present)
