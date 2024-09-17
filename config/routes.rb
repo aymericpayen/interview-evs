@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'best_possible_gain/show'
-  get 'potato_prices/show'
+  namespace :potatoes do
+    get 'prices', to: 'prices#show'
+    get 'best_possible_gain', to: 'best_possible_gain#show'
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

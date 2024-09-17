@@ -4,6 +4,7 @@ module DateValidation
   private
 
   def valid_date?(date, format)
+    return false if date.nil?
     Date.strptime(date, format)
     true
   rescue ArgumentError
